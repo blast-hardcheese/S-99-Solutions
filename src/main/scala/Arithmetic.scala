@@ -37,6 +37,11 @@ package arithmetic {
 
       getPrimeFactors(start)
     }
+
+    def primeFactorMultiplicity = primeFactors.foldLeft[List[(Int, Int)]](List())( (last, next) => last match {
+      case x :: xs if(x._1 == next) => (x._1, x._2 + 1) :: xs
+      case xs => (next, 1) :: xs
+    }).reverse
   }
 
   object S99Int {
