@@ -6,6 +6,8 @@ package arithmetic {
     def isPrime = ! isNotPrime
 
     def isCoprimeTo(other: Int) = gcd(start, other) == 1
+
+    def totient = (1 to start).flatMap({ n => if(isCoprimeTo(n)) Some(n) else None }).length
   }
 
   object S99Int {
