@@ -4,6 +4,8 @@ package arithmetic {
 
     def isNotPrime = (2 to start / 2).foldLeft[Boolean](false)( (last, next) => last || (start % next == 0) )
     def isPrime = ! isNotPrime
+
+    def isCoprimeTo(other: Int) = gcd(start, other) == 1
   }
 
   object S99Int {
