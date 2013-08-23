@@ -8,5 +8,12 @@ package arithmetic {
 
   object S99Int {
     implicit def int2S99Int(i: Int): S99Int = new S99Int(i)
+
+    def gcd(l: Int, r: Int): Int = (l, r) match {
+      case (l, r) if(l < 0 || r < 0) => 1
+      case (l, r) if(l > r) => gcd(l - r, r)
+      case (l, r) if(l < r) => gcd(l, r - l)
+      case (l, r) if(l == r) => l
+    }
   }
 }
