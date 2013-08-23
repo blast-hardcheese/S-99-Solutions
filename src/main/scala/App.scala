@@ -9,6 +9,7 @@ trait Challenge {
 object App {
   // Adding elements backwards here to minimize scm line changes (having to add a comma after every line)
   def challenges = ListMap[Int, Challenge](
+    35 -> Challenge35,
     34 -> Challenge34,
     33 -> Challenge33,
     32 -> Challenge32,
