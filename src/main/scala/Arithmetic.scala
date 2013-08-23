@@ -7,7 +7,10 @@ package arithmetic {
 
     def isCoprimeTo(other: Int) = gcd(start, other) == 1
 
-    def totient = (1 to start).flatMap({ n => if(isCoprimeTo(n)) Some(n) else None }).length
+    def pow(n: Int, r: Int = 1): Int = if(n <= 0) r else pow(n - 1, r * start)
+    def inefficientTotient = (1 to start).flatMap({ n => if(isCoprimeTo(n)) Some(n) else None }).length
+    def improvedTotient = primeFactorMultiplicity.foldLeft(1)({ case (last, (p, m)) => last * (p-1)*p.pow(m-1) })
+    def totient = improvedTotient
 
     def allFactors = {
       @scala.annotation.tailrec
