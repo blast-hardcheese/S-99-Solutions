@@ -62,5 +62,17 @@ package arithmetic {
       if(limit % n == 0) n
       else smallestFactor(limit, n + 1)
     }
+
+    def listPrimesinRange(r: Range): List[Int] = {
+      def collectPrimes(i: Int, primes: List[Int], seed: List[Int]): List[Int] = {
+        val isPrime = (seed ::: primes).foldLeft(true)( (last, next) => last && i % next != 0 )
+        if(isPrime) primes :+ i
+        else primes
+      }
+      def rangePrimes(range: Range, seed: List[Int] = List()) =
+        range.foldLeft[List[Int]](List())( (last, next) => collectPrimes(next, last, seed) )
+      val startPrimes = rangePrimes(2 until r.start)
+      rangePrimes(r, startPrimes)
+    }
   }
 }
