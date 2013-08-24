@@ -45,6 +45,15 @@ package arithmetic {
       case x :: xs if(x._1 == next) => (x._1, x._2 + 1) :: xs
       case xs => (next, 1) :: xs
     }).reverse
+
+    def goldbach = {
+      def find(big: Int, smalls: List[Int], target: Int): Option[Int] = smalls.filter( _ + big == target).headOption
+      val allFactors = start.allFactors
+      allFactors.foldRight[Option[Tuple2[Int, Int]]](None)({
+        case (_, x@Some(_)) => x
+        case (next, None) => find(next, start.allFactors, start).map({ n => (n, next) })
+      })
+    }
   }
 
   object S99Int {
