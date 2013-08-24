@@ -2,7 +2,7 @@ package arithmetic {
   class S99Int(val start: Int) {
     import S99Int._
 
-    def isNotPrime = (2 to start / 2).foldLeft[Boolean](false)( (last, next) => last || (start % next == 0) )
+    def isNotPrime = (2 to start / 2).foldLeft(false)( (last, next) => last || (start % next == 0) )
     def isPrime = ! isNotPrime
 
     def isCoprimeTo(other: Int) = gcd(start, other) == 1
