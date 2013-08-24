@@ -46,7 +46,7 @@ package arithmetic {
       case xs => (next, 1) :: xs
     }).reverse
 
-    def goldbach = {
+    def goldbach: Option[Tuple2[Int, Int]] = {
       def find(big: Int, smalls: List[Int], target: Int): Option[Int] = smalls.filter( _ + big == target).headOption
       val allFactors = start.allFactors
       allFactors.foldRight[Option[Tuple2[Int, Int]]](None)({
@@ -82,6 +82,23 @@ package arithmetic {
         range.foldLeft[List[Int]](List())( (last, next) => collectPrimes(next, last, seed) )
       val startPrimes = rangePrimes(2 until r.start)
       rangePrimes(r, startPrimes)
+    }
+
+    def getGoldbachMapping(range: Range): Map[Int, Tuple2[Int, Int]] = {
+      range.flatMap({
+        case n if(n % 2 == 0) => n.goldbach.map({ g => (n, g) })
+        case _ => None
+      }).toMap
+    }
+
+    def printGoldbachListLimited(range: Range, limit: Int) = {
+      val goldbachMap = getGoldbachMapping(range)
+      val keys = goldbachMap.keys.toList.sorted.filter( goldbachMap(_)._1 > limit )
+      keys.map({ i => val (l, r) = goldbachMap(i); "%d = %d + %d".format(i, l, r) }).mkString("\n")
+    }
+
+    def printGoldbachList(range: Range) = {
+      printGoldbachListLimited(range, 0)
     }
   }
 }
